@@ -1,4 +1,4 @@
-package com.example.ian.mobileoa;
+package presentation.index;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.ian.mobileoa.R;
+
+import presentation.business.BussinessIndexActivity;
+import presentation.contact.ContactListActivity;
+import presentation.contract.ContractListActivity;
+import presentation.customer.CustomerListActivity;
+import presentation.opportunity.OpportunityListActivity;
+import presentation.product.ProductListActivity;
 
 public class IndexActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +53,8 @@ public class IndexActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setJump();
     }
 
     @Override
@@ -97,5 +112,33 @@ public class IndexActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setJump(){
+        Toast.makeText(this, "setting jump", Toast.LENGTH_LONG).show();
+//        ScrollView customerScroll =(ScrollView)findViewById(R.id.customerScroll);
+//        customerScroll.setOnClickListener(new JumpListener(this, CustomerListActivity.class));
+
+//        Button testBtn = (Button)findViewById(R.id.testBtn);
+//        testBtn.setOnClickListener(new JumpListener(this, CustomerListActivity.class));
+
+        TextView customerText = (TextView)findViewById(R.id.customerText);
+        customerText.setOnClickListener(new JumpListener(this, CustomerListActivity.class));
+
+        TextView opportunityText = (TextView)findViewById(R.id.opportunityText);
+        opportunityText.setOnClickListener(new JumpListener(this, OpportunityListActivity.class));
+
+        TextView contractText = (TextView)findViewById(R.id.contractText);
+        contractText.setOnClickListener(new JumpListener(this, ContractListActivity.class));
+
+        TextView bussinessText = (TextView)findViewById(R.id.businessText);
+        bussinessText.setOnClickListener(new JumpListener(this, BussinessIndexActivity.class));
+
+        TextView contactText = (TextView)findViewById(R.id.contactText);
+        contactText.setOnClickListener(new JumpListener(this, ContactListActivity.class));
+
+        TextView productText = (TextView)findViewById(R.id.productText);
+        productText.setOnClickListener(new JumpListener(this, ProductListActivity.class));
+
     }
 }
