@@ -48,7 +48,7 @@ public class ListItemContent extends LinearLayout {
         this.addView(mainContent);
     }
 
-//  
+//
 
     public void addBtn(View btn){
         btns.add(btn);
