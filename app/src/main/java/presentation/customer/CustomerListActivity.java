@@ -1,12 +1,10 @@
 package presentation.customer;
 
 import android.app.Activity;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -14,23 +12,27 @@ import android.widget.ScrollView;
 import android.widget.TabHost;
 
 import com.example.ian.mobileoa.R;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
-public class CustomerListActivity extends Activity {
+import java.util.ArrayList;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+import bl_stub.ICustomerBL_Stub;
+import blservice.ICustomerBL;
+import entity.Customer;
+
+public class CustomerListActivity extends Activity{
+    private LinearLayout allCusLayout;
+    private LinearLayout myCusLayout;
+    private ICustomerBL cusBL;
+
+    private TabHost tabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        cusBL = new ICustomerBL_Stub();
 //        setSupportActionBar(toolbar);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -42,13 +44,12 @@ public class CustomerListActivity extends Activity {
 //            }
 //        });
         setTab();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        refreshContent(0);
+        refreshContent(1);
     }
 
     private void setTab() {
-        TabHost tabHost = (TabHost) findViewById(R.id.customerListTabHost);
+        tabHost = (TabHost) findViewById(R.id.customerListTabHost);
         // 如果没有继承TabActivity时，通过该种方法加载启动tabHost
         tabHost.setup();
         ScrollView allCusScroll = (ScrollView) findViewById(R.id.allCusScroll);
@@ -57,55 +58,94 @@ public class CustomerListActivity extends Activity {
         FrameLayout tabContent = (FrameLayout) allCusScroll.getParent();
         int tabContentHeight = tabContent.getMeasuredHeight();
 
-        LinearLayout allCusLayout = (LinearLayout) findViewById(R.id.allCusContent);
-        LinearLayout myCusLayout = (LinearLayout) findViewById(R.id.myCusContent);
+        allCusLayout = (LinearLayout) findViewById(R.id.allCusContent);
+        myCusLayout = (LinearLayout) findViewById(R.id.myCusContent);
 
-        allCusLayout.setMinimumHeight(tabContentHeight);
-        myCusLayout.setMinimumHeight(tabContentHeight);
-
+//        allCusLayout.setMinimumHeight(tabContentHeight);
+//        myCusLayout.setMinimumHeight(tabContentHeight);
 
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("全部客户").setContent(R.id.allCusScroll));
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("我的客户").setContent(R.id.myCusScroll));
 
+//        tabHost.getTabWidget().getChildAt(0).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                tabHost.setCurrentTab(0);
+////                refreshContent(0);
+//                ArrayList<CustomerListItem> items = addItemMock(allCusLayout);
+////                updateItemMock(items);
+//            }
+//        });
+//        tabHost.getTabWidget().getChildAt(1).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                tabHost.setCurrentTab(1);
+////                refreshContent(1);
+//                ArrayList<CustomerListItem> items = addItemMock(myCusLayout);
+////                updateItemMock(items);
+//            }
+//        });
+
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+//    public ArrayList<CustomerListItem> addItemMock(LinearLayout layout){
+//        layout.removeAllViews();
+//        ArrayList<CustomerListItem> items = new ArrayList<>();
+//        for(int i=0;i<1;i++) {
+//            CustomerListItem item = new CustomerListItem(CustomerListActivity.this);
+//            item.init();
+//            layout.addView(item);
+//            items.add(item);
+//        }
+//        return items;
+//    }
+//
+//    public void updateItemMock(ArrayList<CustomerListItem> items){
+//        for(CustomerListItem item : items){
+//            item.init();
+//        }
+//    }
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        client.connect();
-//        Action viewAction = Action.newAction(
-//                Action.TYPE_VIEW, // TODO: choose an action type.
-//                "CustomerList Page", // TODO: Define a title for the content shown.
-//                // TODO: If you have web page content that matches this app activity's content,
-//                // make sure this auto-generated web page URL is correct.
-//                // Otherwise, set the URL to null.
-//                Uri.parse("http://host/path"),
-//                // TODO: Make sure this auto-generated app deep link URI is correct.
-//                Uri.parse("android-app://presentation.customer/http/host/path")
-//        );
-//        AppIndex.AppIndexApi.start(client, viewAction);
+    public void refreshContent(final int allmy){
+        //异步加载
+        AsyncTask<Integer, Customer, ArrayList<Customer>> task = new AsyncTask<Integer, Customer, ArrayList<Customer>>() {
+
+            @Override
+            protected ArrayList<Customer> doInBackground(Integer... params) {
+                ArrayList<Customer> customers = null;
+                int flag = params[0];
+                if(flag == 0){
+                    customers = cusBL.getCustomerList();
+                }else{
+                    customers = cusBL.getCustomerList();
+                }
+                for(Customer customer : customers){
+                    publishProgress(customer);
+                }
+
+                return customers;
+            }
+
+            @Override
+            protected void onProgressUpdate(Customer... values) {
+                CustomerListItem item = new CustomerListItem(CustomerListActivity.this);
+
+                if(allmy == 0){
+                    allCusLayout.addView(item);
+                }else if(allmy == 1){
+                    myCusLayout.addView(item);
+                }
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<Customer> customers) {
+//              done
+
+            }
+        };
+
+        task.execute(allmy);
+
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        Action viewAction = Action.newAction(
-//                Action.TYPE_VIEW, // TODO: choose an action type.
-//                "CustomerList Page", // TODO: Define a title for the content shown.
-//                // TODO: If you have web page content that matches this app activity's content,
-//                // make sure this auto-generated web page URL is correct.
-//                // Otherwise, set the URL to null.
-//                Uri.parse("http://host/path"),
-//                // TODO: Make sure this auto-generated app deep link URI is correct.
-//                Uri.parse("android-app://presentation.customer/http/host/path")
-//        );
-//        AppIndex.AppIndexApi.end(client, viewAction);
-//        client.disconnect();
-    }
 }

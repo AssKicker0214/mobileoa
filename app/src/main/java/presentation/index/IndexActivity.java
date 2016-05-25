@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andexert.library.RippleView;
 import com.example.ian.mobileoa.R;
 
 import presentation.business.BussinessIndexActivity;
@@ -115,7 +116,7 @@ public class IndexActivity extends AppCompatActivity
     }
 
     private void setJump(){
-        Toast.makeText(this, "setting jump", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "setting jump", Toast.LENGTH_LONG).show();
 //        ScrollView customerScroll =(ScrollView)findViewById(R.id.customerScroll);
 //        customerScroll.setOnClickListener(new JumpListener(this, CustomerListActivity.class));
 
@@ -125,8 +126,12 @@ public class IndexActivity extends AppCompatActivity
         TextView customerText = (TextView)findViewById(R.id.customerText);
         customerText.setOnClickListener(new JumpListener(this, CustomerListActivity.class));
 
-        TextView opportunityText = (TextView)findViewById(R.id.opportunityText);
-        opportunityText.setOnClickListener(new JumpListener(this, OpportunityListActivity.class));
+//        TextView opportunityText = (TextView)findViewById(R.id.opportunityText);
+//        opportunityText.setOnClickListener(new JumpListener(this, OpportunityListActivity.class));
+        ((RippleView)findViewById(R.id.oppoRipple)).setOnRippleCompleteListener(new JumpListener(this, OpportunityListActivity.class));
+        RippleView oppoRipple = ((RippleView) findViewById(R.id.oppoRipple));
+//                oppoRipple.setRippleDuration(500);
+        oppoRipple.setFrameRate(10);
 
         TextView contractText = (TextView)findViewById(R.id.contractText);
         contractText.setOnClickListener(new JumpListener(this, ContractListActivity.class));

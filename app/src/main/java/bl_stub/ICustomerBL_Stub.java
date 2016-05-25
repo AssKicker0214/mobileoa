@@ -15,11 +15,16 @@ public class ICustomerBL_Stub implements ICustomerBL{
 
     @Override
     public ArrayList<Customer> getCustomerList() {
-        return null;
+        ArrayList<Customer> customers = new ArrayList<>();
+        for(int i=0;i<1;i++){
+            Customer cus = new Customer("客户"+i);
+            customers.add(cus);
+        }
+        return customers;
     }
 
     @Override
     public ArrayList<Customer> getCustomerList(String userID) {
-        return null;
+        return getCustomerList();
     }
 }
