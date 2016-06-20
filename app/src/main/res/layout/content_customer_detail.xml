@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:sat="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="presentation.customer.CustomerDetailActivity"
+    tools:showIn="@layout/activity_customer_detail">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/customer_header"
+        android:paddingLeft="20dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/header_gradual_color">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView7"
+            android:src="@mipmap/customer"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="客户名称"
+            android:id="@+id/customer_create_cusname"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView7"
+            android:layout_toEndOf="@+id/imageView7"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:textColor="#eeeeee"
+            android:layout_alignTop="@+id/imageView7"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="创建者"
+            android:id="@+id/customer_detail_staffname"
+            android:layout_below="@+id/customer_create_cusname"
+            android:layout_alignLeft="@+id/customer_create_cusname"
+            android:layout_alignStart="@+id/customer_create_cusname"
+            android:textColor="#e0e0e0"
+            android:layout_marginBottom="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="id"
+            android:id="@+id/customer_detail_staffid"
+            android:layout_below="@+id/customer_create_cusname"
+            android:layout_toRightOf="@+id/customer_detail_staffname"
+            android:layout_toEndOf="@+id/customer_detail_staffname"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="id"
+            android:id="@+id/customer_detail_cusid"
+            android:layout_alignBottom="@+id/customer_create_cusname"
+            android:layout_toRightOf="@+id/customer_create_cusname"
+            android:layout_toEndOf="@+id/customer_create_cusname"
+            android:layout_marginLeft="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="24dp"
+            android:id="@+id/linearLayout5">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="资料"
+                android:id="@+id/customer_detial_btn"
+                android:layout_above="@+id/linearLayout5"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:minHeight="0dp"
+                android:layout_gravity="right" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="☆☆☆"
+                android:id="@+id/customer_detail_rating"
+                android:textColor="#dce775" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TabHost
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/customerDetailTabHost"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/customer_header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/keepupScroll"
+                    android:minHeight="1000dp"
+                    android:background="#263238" >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/customerKeepupContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/contactScroll"
+                    android:minHeight="1000dp"
+                    android:background="#930505" >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/customerContactContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#f6eeee"
+                        android:measureWithLargestChild="false"></LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/oppoScroll"
+                    android:minHeight="1000dp"
+                    android:background="#930505" >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/customerOppoContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#f6eeee"
+                        android:measureWithLargestChild="false"></LinearLayout>
+                </ScrollView>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/contractScroll"
+                    android:minHeight="1000dp"
+                    android:background="#930505" >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/customerContractContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#f6eeee"
+                        android:measureWithLargestChild="false"></LinearLayout>
+                </ScrollView>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</RelativeLayout>

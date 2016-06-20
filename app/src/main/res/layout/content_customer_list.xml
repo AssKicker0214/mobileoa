@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/allCusScroll"
                     android:minHeight="1000dp"
-                    android:background="#24d535" >
+                    android:background="#f5f5f5" >
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/myCusScroll"
                     android:minHeight="1000dp"
-                    android:background="#930505" >
+                    android:background="#f5f5f5" >
 
                     <LinearLayout
                         android:orientation="vertical"

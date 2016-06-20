@@ -37,6 +37,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
@@ -182,7 +183,7 @@ public class RippleView extends RelativeLayout {
                 canvas.save();
 
 
-            canvas.drawCircle(x, y, (radiusMax * (((float) timer * frameRate) / rippleDuration)), paint);
+            canvas.drawCircle(x, y, (2*radiusMax * (((float) timer * frameRate) / rippleDuration)), paint);
 
             paint.setColor(Color.parseColor("#ffff4444"));
 
@@ -217,6 +218,7 @@ public class RippleView extends RelativeLayout {
         WIDTH = w;
         HEIGHT = h;
 
+//        scaleAnimation = new ScaleAnimation()
         scaleAnimation = new ScaleAnimation(1.0f, zoomScale, 1.0f, zoomScale, w / 2, h / 2);
         scaleAnimation.setDuration(zoomDuration);
         scaleAnimation.setRepeatMode(Animation.REVERSE);
@@ -279,6 +281,7 @@ public class RippleView extends RelativeLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Log.i("MD", (gestureDetector==null)+"");
         if (gestureDetector.onTouchEvent(event)) {
             animateRipple(event);
             sendClickEvent(false);

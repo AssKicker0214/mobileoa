@@ -1,5 +1,6 @@
 package presentation.opportunity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,13 @@ import android.widget.TabHost;
 
 import com.example.ian.mobileoa.R;
 
+import java.util.ArrayList;
+
+import bl.OpportunityBL;
+import entity.Opportunity;
+
 public class OpportunityListActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,8 @@ public class OpportunityListActivity extends AppCompatActivity {
 //            }
 //        });
         setTab();
+
+        appendContent(true, 0);
     }
 
     private void setTab() {
@@ -53,5 +62,30 @@ public class OpportunityListActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("全部商机").setContent(R.id.allOppScroll));
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("我的商机").setContent(R.id.myOppScroll));
 
+    }
+
+    public void appendContent(final boolean isAll, final int page){
+        AsyncTask<Integer, Void, ArrayList<Opportunity>> task = new AsyncTask<Integer, Void, ArrayList<Opportunity>>() {
+            @Override
+            protected ArrayList<Opportunity> doInBackground(Integer... params) {
+                OpportunityBL oppoBL = new OpportunityBL();
+                return oppoBL.getOppoList(page);
+            }
+
+            protected void onPostExecute(ArrayList<Opportunity> oppos) {
+                for(Opportunity oppo : oppos){
+                    OppoListItem item = new OppoListItem(OpportunityListActivity.this, oppo);
+                    if(isAll){
+                        assert ((LinearLayout)findViewById(R.id.allOppContent)) != null;
+                        ((LinearLayout)findViewById(R.id.allOppContent)).addView(item);
+                    }else{
+                        ((LinearLayout)findViewById(R.id.myOppContent)).addView(item);
+                    }
+                }
+
+            }
+        };
+
+        task.execute(page);
     }
 }

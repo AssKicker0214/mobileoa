@@ -1,5 +1,10 @@
 package presentation.index;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,7 +26,15 @@ import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 import com.example.ian.mobileoa.R;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import bl.CurrentLogin;
+import bl.HttpProxy;
 import presentation.business.BussinessIndexActivity;
 import presentation.contact.ContactListActivity;
 import presentation.contract.ContractListActivity;
@@ -30,21 +45,31 @@ import presentation.product.ProductListActivity;
 public class IndexActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        }
+
         setContentView(R.layout.activity_index);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,6 +81,14 @@ public class IndexActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         setJump();
+
+        if(CurrentLogin.logged){
+            navigationView.getHeaderView(1);
+            ((TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_current_login_name)).setText(CurrentLogin.name);
+            ((TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_current_login_id)).setText(CurrentLogin.id);
+//            ((TextView)findViewById(R.id.nav_current_login_id)).setText("id: "+CurrentLogin.id);
+
+        }
     }
 
     @Override
@@ -86,7 +119,6 @@ public class IndexActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -104,8 +136,10 @@ public class IndexActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            this.onStop();
         } else if (id == R.id.nav_send) {
 
         }
@@ -115,35 +149,41 @@ public class IndexActivity extends AppCompatActivity
         return true;
     }
 
-    private void setJump(){
-//        Toast.makeText(this, "setting jump", Toast.LENGTH_LONG).show();
-//        ScrollView customerScroll =(ScrollView)findViewById(R.id.customerScroll);
-//        customerScroll.setOnClickListener(new JumpListener(this, CustomerListActivity.class));
+    private void setJump() {
+        setListener(findViewById(R.id.customerRipple), CustomerListActivity.class);
+        setListener(findViewById(R.id.oppoRipple), OpportunityListActivity.class);
+        setListener(findViewById(R.id.contractRipple), ContractListActivity.class);
+        setListener(findViewById(R.id.businessRipple), BussinessIndexActivity.class);
+        setListener(findViewById(R.id.contactRipple), ContactListActivity.class);
+        setListener(findViewById(R.id.productRipple), ProductListActivity.class);
 
-//        Button testBtn = (Button)findViewById(R.id.testBtn);
-//        testBtn.setOnClickListener(new JumpListener(this, CustomerListActivity.class));
-
-        TextView customerText = (TextView)findViewById(R.id.customerText);
-        customerText.setOnClickListener(new JumpListener(this, CustomerListActivity.class));
-
-//        TextView opportunityText = (TextView)findViewById(R.id.opportunityText);
-//        opportunityText.setOnClickListener(new JumpListener(this, OpportunityListActivity.class));
-        ((RippleView)findViewById(R.id.oppoRipple)).setOnRippleCompleteListener(new JumpListener(this, OpportunityListActivity.class));
-        RippleView oppoRipple = ((RippleView) findViewById(R.id.oppoRipple));
-//                oppoRipple.setRippleDuration(500);
-        oppoRipple.setFrameRate(10);
-
-        TextView contractText = (TextView)findViewById(R.id.contractText);
-        contractText.setOnClickListener(new JumpListener(this, ContractListActivity.class));
-
-        TextView bussinessText = (TextView)findViewById(R.id.businessText);
-        bussinessText.setOnClickListener(new JumpListener(this, BussinessIndexActivity.class));
-
-        TextView contactText = (TextView)findViewById(R.id.contactText);
-        contactText.setOnClickListener(new JumpListener(this, ContactListActivity.class));
-
-        TextView productText = (TextView)findViewById(R.id.productText);
-        productText.setOnClickListener(new JumpListener(this, ProductListActivity.class));
 
     }
+
+    private void setListener(View view, Class next){
+        RippleView ripple = (RippleView) view;
+        assert ripple != null;
+        ripple.setOnRippleCompleteListener(new JumpListener(this, next));
+        ripple.setFrameRate(5);
+        ripple.setRippleDuration(100);
+    }
+
+    private void setDrawer(){
+
+    }
+//    private void testHttp(){
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                Map<String, String> attri = new HashMap<String, String>();
+//                attri.put("currentpage", "0");
+//                attri.put("search", "");
+//                HttpProxy.post(attri);
+//            }
+//        };
+//
+//        new Thread(runnable).start();
+//    }
+
 }

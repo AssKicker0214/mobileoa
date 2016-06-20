@@ -1,9 +1,11 @@
 package presentation.universal;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
 //import android.support.annotation.DimenRes;
+import android.os.Build;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -12,11 +14,16 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AbsoluteLayout;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.andexert.library.RippleView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ian on 2016/5/17.
@@ -28,16 +35,16 @@ import android.widget.Toast;
  *  2. evalation设置
  *
  */
-public class ListItem extends HorizontalScrollView implements ViewTreeObserver.OnScrollChangedListener {
+public abstract class ListItem extends HorizontalScrollView implements ViewTreeObserver.OnScrollChangedListener, RippleView.OnRippleCompleteListener {
     private static int index = 0;
 //    public static int measuredWidth = 0;
 
 //    private int width;
-    private int height = 80;
+    protected int height = 80;
 //    private boolean inited = false;
 
-    private ListItemContent content;
-    private Context context;
+    protected ListItemContent content;
+    protected Context context;
     public ListItem(Context context) {
         super(context);
         this.context = context;
@@ -52,7 +59,6 @@ public class ListItem extends HorizontalScrollView implements ViewTreeObserver.O
         super(context);
         this.context = context;
         this.height = height;
-//        Log.d("MD", index+"");
         init();
     }
 
@@ -63,48 +69,52 @@ public class ListItem extends HorizontalScrollView implements ViewTreeObserver.O
             this.setBackgroundColor(Color.GRAY);
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.height = height;
         params.setMargins(0, 1, 0, 1);
 
         this.setHorizontalScrollBarEnabled(false);
         this.setLayoutParams(params);
-
+        this.setShadow();
         //添加滚动监听
         this.getViewTreeObserver().addOnScrollChangedListener(this);
+
 
         Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);
         int width = point.x;
         setContent(context, width, height);
+
+        //添加点击监听
+        content.setJumpListener(this);
+//        content.addBtn(new ListItemBtnFactory(context).getDelete(80, 80));
+
     }
 
-//    @Override
-//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//        setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight());
-//        this.width = getMeasuredWidth();
-//        this.height = getMeasuredHeight();
-//        if(!inited){
-//            inited = true;
-//            setContent();
-//            Log.i("item", "measure, content setted");
-//        }else{
-//            //update
-//            Log.i("item", "measure");
-//        }
-////        Log.d("MD","on measure("+getMeasuredWidth()+","+getMeasuredHeight()+")");
-//    }
+    public void setShadow(){
 
+    }
 
     protected void setContent(Context context, int width, int height){
         content = new ListItemContent(context, width, height);
-        ListItemBtnFactory factory = new ListItemBtnFactory(context);
-        content.addBtn(factory.getDelete(height, height));
+        addButtons();
         if(this.getChildCount() != 0){
             this.removeAllViews();
         }
         this.addView(content);
+    }
+
+    protected ArrayList<View> getButtons(){
+        ArrayList<View> btns = new ArrayList<>();
+//        btns.add(new ListItemBtnFactory(this.context).getDelete(80, 80));
+        return btns;
+    }
+
+    //默认加入删除按钮,重写方法来获得其他效果
+    protected void addButtons(){
+        content.addBtn(new ListItemBtnFactory(context).getDelete(80, 80));
+        content.addBtn(new ListItemBtnFactory(context).getDelete(80, 80));
     }
 
     public void addContent(View view){
@@ -123,14 +133,4 @@ public class ListItem extends HorizontalScrollView implements ViewTreeObserver.O
 //        Log.i("MD", "scroll-x="+x);
 
     }
-}
-
-class TestView extends TextView{
-
-    public TestView(Context context) {
-        super(context);
-        this.setText("abcdefg,hijklmn,opq,rst,uvw,xyz!abcdefg,hijklmn,opq,rst,uvw,xyz!");
-    }
-
-
 }

@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ian.mobileoa">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -51,12 +59,36 @@
             android:label="@string/title_activity_contact_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ListItemTestActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity
+            android:name="presentation.customer.CustomerDetailActivity"
+            android:label="@string/title_activity_customer_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="presentation.contact.ContactDetailActivity"
+            android:label="@string/title_activity_contact_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="presentation.index.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name="presentation.index.RegisterActivity"
+            android:label="@string/title_activity_register" />
+        <activity
+            android:name="presentation.opportunity.OppoDetailActivity"
+            android:label="@string/title_activity_oppo_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="presentation.customer.CustomerCreateActivity"
+            android:label="@string/title_activity_customer_create"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

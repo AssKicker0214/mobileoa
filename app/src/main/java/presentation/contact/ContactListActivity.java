@@ -1,10 +1,12 @@
 package presentation.contact;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -13,11 +15,20 @@ import android.widget.TabHost;
 
 import com.example.ian.mobileoa.R;
 
-public class ContactListActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+import bl.ContactBL;
+import bl.CurrentLogin;
+import entity.Contact;
+import presentation.universal.IListAppendable;
+import presentation.universal.MoreBtn;
+
+public class ContactListActivity extends AppCompatActivity implements IListAppendable{
+    ContactBL contactBL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        contactBL = new ContactBL();
         setContentView(R.layout.activity_contact_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -30,6 +41,10 @@ public class ContactListActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        setTab();
+        appendContent(true, 1);
+        appendContent(false, 1);
     }
 
     private void setTab() {
@@ -52,5 +67,53 @@ public class ContactListActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("全部合同").setContent(R.id.allContactScroll));
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("我的合同").setContent(R.id.myContactScroll));
 
+    }
+
+    public void appendContent(final boolean isAll, final int page){
+        AsyncTask<Integer, Void, ArrayList<Contact>> task = new AsyncTask<Integer, Void, ArrayList<Contact>>() {
+            int pageCount = 0;
+            @Override
+            protected ArrayList<Contact> doInBackground(Integer... params) {
+                ArrayList<Contact> contacts = null;
+                if(isAll){
+                    contacts = contactBL.getContactList(params[0]);
+                    pageCount = contactBL.getPageCount();
+                }else{
+                    contacts = contactBL.getContactList(CurrentLogin.id, params[0]);
+                    pageCount = contactBL.getPageCount();
+                }
+                return contacts;
+            }
+
+            protected void onPostExecute(ArrayList<Contact> contacts){
+                LinearLayout layout = null;
+                if(isAll){
+                    layout = ((LinearLayout)(findViewById(R.id.allContactContent)));
+                }else{
+                    layout = ((LinearLayout)(findViewById(R.id.myContactContent)));
+                }
+                assert layout!=null;
+                assert contacts!=null;
+                if(layout.getChildCount() > 0) {
+                    layout.removeViewAt(layout.getChildCount() - 1);
+                }
+                for(Contact contact : contacts){
+                    ContactListItem item = new ContactListItem(ContactListActivity.this, contact);
+                    layout.addView(item);
+                }
+
+                MoreBtn moreBtn = null;
+                moreBtn = new MoreBtn(layout, ContactListActivity.this);
+
+                moreBtn.show(pageCount, true, page);
+            }
+        };
+
+        task.execute(page);
+    }
+
+    @Override
+    public int getPageCount(boolean isAll) {
+        return 0;
     }
 }
