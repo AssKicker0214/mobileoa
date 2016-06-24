@@ -30,4 +30,5 @@
   <color name="colorPrimaryDark">#FFFFFF</color>
   <color name="colorAccent">#FF4081</color>
   <color name="toolbarColor">#455a64</color>
+  <color name="keepupBackgroundColor">#263238</color>
 </resources>

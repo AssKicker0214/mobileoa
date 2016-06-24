@@ -14,4 +14,18 @@ public enum ContractState {
     public String toString(){
         return des;
     }
+
+    public int toFigure(){
+        int f = 0;
+        if(des.equals("未开始")){
+            f=1;
+        }else if(des.equals("执行中")){
+            f=2;
+        }else if(des.equals("意外终止")){
+            f=4;
+        }else if(des.equals("成功结束")){
+            f = 3;
+        }
+        return f;
+    }
 }

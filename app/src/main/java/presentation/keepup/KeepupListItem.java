@@ -1,7 +1,9 @@
 package presentation.keepup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,6 +74,12 @@ public class KeepupListItem extends ListItem {
 
     @Override
     public void onComplete(RippleView rippleView) {
+        Intent intent = new Intent(this.context, KeepupCreateActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Keepup", keepup);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+
 
     }
 }

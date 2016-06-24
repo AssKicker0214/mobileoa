@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -58,8 +59,8 @@ public class CustomerListActivity extends Activity implements IListAppendable{
             }
         });
         setTab();
-        appendContent(true, 1);
-        appendContent(false, 1);
+//        appendContent(true, 1);
+//        appendContent(false, 1);
 
     }
 
@@ -202,5 +203,18 @@ public class CustomerListActivity extends Activity implements IListAppendable{
     @Override
     public int getPageCount(boolean isAll) {
         return 0;
+    }
+
+    public void clearContent(){
+        ((ViewGroup) findViewById(R.id.allCusContent)).removeAllViews();
+        ((ViewGroup) findViewById(R.id.myCusContent)).removeAllViews();
+    }
+
+    @Override
+    public void onPostResume(){
+        super.onPostResume();
+        clearContent();
+        appendContent(true, 1);
+        appendContent(false, 1);
     }
 }

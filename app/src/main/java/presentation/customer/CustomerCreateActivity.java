@@ -118,11 +118,11 @@ public class CustomerCreateActivity extends AppCompatActivity {
         }
 
         String rate = "";
-        if(customer.rank == 1){
+        if(customer.rank == 3){
             rate = "★☆☆";
         }else if(customer.rank == 2){
             rate = "★★☆";
-        }else if(customer.rank == 3){
+        }else if(customer.rank == 1){
             rate = "★★★";
         }else{
             rate = "☆☆☆";
@@ -158,14 +158,14 @@ public class CustomerCreateActivity extends AppCompatActivity {
 
                 if (rate == 1) {
                     ratingText.setText("★☆☆");
-                    rank = 1;
+                    rank = 3;
                 } else if (rate == 2) {
                     ratingText.setText("★★☆");
                     rank = 2;
 
                 } else if (rate == 3) {
                     ratingText.setText("★★★");
-                    rank = 3;
+                    rank = 1;
                 }
             }
         });

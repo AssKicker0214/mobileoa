@@ -46,6 +46,7 @@ public class CustomerListItem extends ListItem {
 
     public void init(){
         setState(0);
+        String rankDes = "";
         setRankAndName(customer.rankDes, customer.name);
         setCreator();
 //        this.addButton(new ListItemBtnFactory(context).getDelete(80, 80));

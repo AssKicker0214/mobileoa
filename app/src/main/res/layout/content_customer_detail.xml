@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/keepupScroll"
                     android:minHeight="1000dp"
-                    android:background="#263238" >
+                    android:background="#212121">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -151,8 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/contactScroll"
-                    android:minHeight="1000dp"
-                    android:background="#930505" >
+                    android:minHeight="1000dp">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -167,8 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/oppoScroll"
-                    android:minHeight="1000dp"
-                    android:background="#930505" >
+                    android:minHeight="1000dp">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -183,8 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/contractScroll"
-                    android:minHeight="1000dp"
-                    android:background="#930505" >
+                    android:minHeight="1000dp">
 
                     <LinearLayout
                         android:orientation="vertical"

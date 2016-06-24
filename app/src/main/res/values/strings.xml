@@ -31,4 +31,8 @@
     <string name="title_activity_oppo_detail">OppoDetailActivity</string>
     <string name="empty"></string>
     <string name="title_activity_customer_create">CustomerCreateActivity</string>
+    <string name="title_activity_oppo_create">OppoCreateActivity</string>
+    <string name="title_activity_keepup_create">KeepupCreateActivity</string>
+    <string name="title_activity_contract_create">ContractCreateActivity</string>
+    <string name="title_activity_contract_detail">ContractDetailActivity</string>
 </resources>

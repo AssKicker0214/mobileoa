@@ -123,14 +123,50 @@ public class CustomerBL implements ICustomerBL{
         Customer customer = null;
         try {
             customer = new Customer(jo.getString("customername"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             customer.id = jo.getString("customerid");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             customer.creatorid = jo.getString("staffid");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             customer.creatorName = jo.getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             customer.address = jo.getString("address");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             customer.email = jo.getString("email");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             customer.website = jo.getString("website");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             customer.createDate = jo.getString("createdate");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             customer.profile = jo.getString("profile");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             switch (customer.rank = jo.getInt("customertype")){
                 case 1 : customer.rankDes = "重要客户"; break;
                 case 2 : customer.rankDes = "一般客户"; break;

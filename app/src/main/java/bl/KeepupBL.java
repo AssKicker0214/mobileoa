@@ -25,6 +25,30 @@ public class KeepupBL implements IKeepupBLService {
 
     }
 
+    public boolean modify(Keepup keepup){
+        JSONObject jo = HttpProxy.getJsonByPost(keepup.toMap(false), "followup_modify_json");
+        try {
+            if(jo.getInt("resultcode") != 1){
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public boolean create(Keepup keepup){
+        JSONObject jo = HttpProxy.getJsonByPost(keepup.toMap(true), "followup_create_json");
+        try {
+            if(jo.getInt("resultcode") != 1){
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public ArrayList<Keepup> getKeepupByCusID(String cusid){
         ArrayList<Keepup> keepups = new ArrayList<>();
 
@@ -40,6 +64,39 @@ public class KeepupBL implements IKeepupBLService {
 
         return keepups;
     }
+
+    public ArrayList<Keepup> getKeepupByContractID(String conid){
+        ArrayList<Keepup> keepups = new ArrayList<>();
+
+        Map<String, String> attri = new HashMap<String, String>();
+        attri.put("currentpage", "0");
+        attri.put("sourcetype", "3");
+        attri.put("sourceid", conid);
+        ArrayList<JSONObject> jos = HttpProxy.post(attri, "common_followup_json");
+        for(JSONObject jo : jos){
+//            Log.i("keepup", jo.toString());
+            keepups.add(fromJson(jo));
+        }
+
+        return keepups;
+    }
+
+    public ArrayList<Keepup> getKeepupByOppoID(String oppoid){
+        ArrayList<Keepup> keepups = new ArrayList<>();
+
+        Map<String, String> attri = new HashMap<String, String>();
+        attri.put("currentpage", "0");
+        attri.put("sourcetype", "2");
+        attri.put("sourceid", oppoid);
+        ArrayList<JSONObject> jos = HttpProxy.post(attri, "common_followup_json");
+        for(JSONObject jo : jos){
+//            Log.i("keepup", jo.toString());
+            keepups.add(fromJson(jo));
+        }
+
+        return keepups;
+    }
+
 
     @Override
     public ArrayList<Keepup> getKeepup(int page) {
@@ -72,20 +129,50 @@ public class KeepupBL implements IKeepupBLService {
         Keepup keepup = new Keepup();
         try {
             keepup.content = jo.getString("content");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             keepup.setCreateTime(jo.getString("createtime"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             keepup.sourceType = SourceType.fromInt(jo.getInt("sourcetype"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             keepup.keeperName = jo.getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             keepup.sourceID = jo.getString("sourceid");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
             keepup.keepupID = jo.getString("followupid");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            keepup.creatorID = jo.getString("creatorid");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            keepup.followupremarks = jo.getString("followupremarks");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-            if(keepup.sourceType.equals("1")){
+        if(keepup.sourceType.equals("1")){
                 CustomerBL cbl = new CustomerBL();
                 Customer customer = cbl.find(keepup.sourceID);
                 keepup.sourceName = customer.name;
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         return keepup;
     }

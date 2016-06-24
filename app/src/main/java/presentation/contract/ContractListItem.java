@@ -1,7 +1,9 @@
 package presentation.contract;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,7 +45,7 @@ public class ContractListItem extends ListItem {
 
     private void update(){
         contractTitle.setText(contract.name);
-        contractContent.setText(contract.content);
+        contractContent.setText(contract.oppoTitle);
         contractTotal.setText(contract.total);
         contractType.setText(contract.type);
 
@@ -68,10 +70,14 @@ public class ContractListItem extends ListItem {
 
     @Override
     public void onComplete(RippleView rippleView) {
-
+        Intent intent = new Intent(context, ContractDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Contract", contract);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     @Override
-    protected void addButtons() {
+    public void addButtons() {
     }
 }

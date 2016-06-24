@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="presentation.opportunity.OppoDetailActivity"
-    tools:showIn="@layout/activity_oppo_detail">
+    tools:context="presentation.opportunity.OppoCreateActivity"
+    tools:showIn="@layout/activity_oppo_create">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -61,21 +61,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TextView
+                        <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:text="商机名称"
-                            android:id="@+id/oppo_detail_title"
+                            android:id="@+id/oppo_create_title"
                             android:textColor="#FFFFFF" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="id:xxxx"
-                            android:id="@+id/oppo_detail_id"
-                            android:layout_marginLeft="10dp" />
 
                     </LinearLayout>
                 </HorizontalScrollView>
@@ -91,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="客户名"
-                        android:id="@+id/oppo_detail_cusname"
+                        android:id="@+id/oppo_create_cusname"
                         android:textColor="#ffffff"
                         android:textSize="12dp" />
 
@@ -100,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="id:xxx"
-                        android:id="@+id/oppo_detail_cusid"
+                        android:id="@+id/oppo_create_cusid"
                         android:layout_marginRight="10dp" />
 
                     <TextView
@@ -108,18 +100,16 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="员工名"
-                        android:id="@+id/oppo_detail_staffname"
+                        android:id="@+id/oppo_create_staffname"
                         android:textColor="#ffffff"
-                        android:textSize="12dp"
-                        android:visibility="invisible" />
+                        android:textSize="12dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="id:xxx"
-                        android:id="@+id/oppo_detail_staffid"
-                        android:visibility="invisible" />
+                        android:id="@+id/oppo_create_staffid" />
 
                 </LinearLayout>
 
@@ -132,6 +122,19 @@
                 android:id="@+id/right"
                 android:layout_weight="1"
                 android:layout_marginTop="10dp">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="编辑"
+                    android:id="@+id/edit_btn"
+                    android:layout_alignParentEnd="true"
+                    android:minHeight="0dp"
+                    android:layout_gravity="right"
+                    android:layout_below="@+id/ranking"
+                    android:layout_alignRight="@+id/bar"
+                    android:layout_marginTop="0dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -148,19 +151,6 @@
                     android:minWidth="80dp"
                     android:gravity="right"
                     android:visibility="invisible" />
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="资料"
-                    android:id="@+id/infoBtn"
-                    android:layout_alignParentEnd="true"
-                    android:minHeight="0dp"
-                    android:layout_gravity="right"
-                    android:layout_below="@+id/ranking"
-                    android:layout_alignRight="@+id/bar"
-                    android:layout_marginTop="0dp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -180,7 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="确定需求"
+                android:text="初步洽谈"
                 android:id="@+id/oppo_step_text"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
@@ -208,77 +198,105 @@
 
     </RelativeLayout>
 
-    <TabHost
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/oppo_detail_host"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
-        android:layout_below="@+id/oppo_detail_header">
+        android:layout_below="@+id/oppo_detail_header"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-            <TabWidget
-                android:id="@android:id/tabs"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="预计签单日期"
+                android:id="@+id/textView" />
+
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TabWidget>
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/expected_date"
+                android:gravity="center" />
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/keepupScroll"
-                    android:minHeight="1000dp"
-                    android:background="#263238" >
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/oppoKeepupContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"></LinearLayout>
-                </ScrollView>
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/productScroll"
-                    android:minHeight="1000dp">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/oppoProductContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#f6eeee"
-                        android:measureWithLargestChild="false"></LinearLayout>
-                </ScrollView>
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/contractScroll"
-                    android:minHeight="1000dp">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/oppoContractContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#f6eeee"
-                        android:measureWithLargestChild="false"></LinearLayout>
-                </ScrollView>
-
-            </FrameLayout>
         </LinearLayout>
-    </TabHost>
-</RelativeLayout>
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="预计销售金额"
+                android:id="@+id/textView3" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/estimated_amount"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="成功率"
+                android:id="@+id/textView17" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/success_rate"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="备注" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:id="@+id/oppo_remarks"
+                android:gravity="center"
+                android:inputType="textMultiLine" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

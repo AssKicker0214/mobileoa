@@ -88,6 +88,22 @@
         <activity
             android:name="presentation.customer.CustomerCreateActivity"
             android:label="@string/title_activity_customer_create"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="presentation.opportunity.OppoCreateActivity"
+            android:label="@string/title_activity_oppo_create"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="presentation.keepup.KeepupCreateActivity"
+            android:label="@string/title_activity_keepup_create"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="presentation.contract.ContractCreateActivity"
+            android:label="@string/title_activity_contract_create"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="presentation.contract.ContractDetailActivity"
+            android:label="@string/title_activity_contract_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

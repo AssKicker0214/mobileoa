@@ -46,13 +46,14 @@ public class OppoListItem extends ListItem {
         cusName.setText(oppo.cusName);
 //        oppoType.setText(oppo.ty);
 //        oppoTitle.setText(oppo.name);
-        oppoTotal.setText(oppo.total);
+        oppoTotal.setText(oppo.estimateAmount+"");
     }
 
     @Override
     public void onComplete(RippleView rippleView) {
         Intent intent = new Intent(context, OppoDetailActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putSerializable("Opportunity", oppo);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

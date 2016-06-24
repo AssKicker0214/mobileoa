@@ -105,19 +105,55 @@ public class ContactBL implements IContactBL {
         Contact contact = null;
         try {
             contact = new Contact(jo.getString("contactsid"));
-            contact.name = jo.getString("contactsname");
-            contact.departmentName = jo.getString("contactsdeptname");
-            contact.qq = jo.getString("contactsqq");
-            contact.wechat = jo.getString("contactswechat");
-            contact.wangwang = jo.getString("contactswangwang");
-            contact.customerName = jo.getString("customername");
-            contact.customerID = jo.getString("customerid");
-            contact.mobilePhone = jo.getString("contactsmobile");
-            contact.email = jo.getString("contactsemail");
-//            contact.
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        try {
+            contact.name = jo.getString("contactsname");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            contact.departmentName = jo.getString("contactsdeptname");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            contact.qq = jo.getString("contactsqq");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            contact.wechat = jo.getString("contactswechat");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            contact.wangwang = jo.getString("contactswangwang");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            contact.customerName = jo.getString("customername");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            contact.customerID = jo.getString("customerid");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            contact.mobilePhone = jo.getString("contactsmobile");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            contact.email = jo.getString("contactsemail");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         return  contact;
     }

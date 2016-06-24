@@ -4,10 +4,12 @@ package entity;
  * Created by Ian on 2016/6/9.
  */
 public enum SourceType{
-    CUSTOMER_KEEPUP("客户跟进"),OPPORTUNITY_KEEPUP("商机跟进"),CONTRACT_KEEPUP("合同跟进");
+    CUSTOMER_KEEPUP("客户跟进", 1),OPPORTUNITY_KEEPUP("商机跟进", 2),CONTRACT_KEEPUP("合同跟进", 3);
     private String des = "未知类型跟进";
-    private SourceType(String des){
+    private int figure = 0;
+    private SourceType(String des, int i){
         this.des = des;
+        this.figure = i;
     }
 
     public String toString(){
@@ -24,5 +26,9 @@ public enum SourceType{
         }else{
             return null;
         }
+    }
+
+    public int getFigure(){
+        return figure;
     }
 }
