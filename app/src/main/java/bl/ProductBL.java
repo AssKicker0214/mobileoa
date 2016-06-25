@@ -39,7 +39,7 @@ public class ProductBL extends UniversalBL {
 
     public ArrayList<Product> getList(int page){
         Map<String, String> att = new HashMap<>();
-        att.put("currentpage", "0");
+        att.put("currentpage", ""+page);
         ArrayList<JSONObject> jos = HttpProxy.post(att, "common_product_json");
         ArrayList<Product> products = new ArrayList<>();
 

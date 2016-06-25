@@ -40,21 +40,30 @@ public class UserBL {
         boolean rs = false;
         Map<String, String> attri = new HashMap<>();
         attri.put("name", as[0]);
-//        if(HttpProxy.post(attri, "staff_create_json") != null){
-//            rs = true;
-//        };
+        if(HttpProxy.post(attri, "staff_create_json") != null){
+            rs = true;
+        };
         matchUser("");
         return rs;
     }
 
     //暂时不可用，currentpage设置0则返回所有信息
-    public void matchUser(String staffName){
+    public String matchUser(String staffName){
         Map<String, String> attr = new HashMap<>();
         attr.put("search","");
 //        attr.put("staffid", "101");
+        attr.put("name", staffName);
         attr.put("currentpage", "0");
 //        int pageCount = HttpProxy.getPageCount(attr, "common_staff_json");
         ArrayList<JSONObject> jos = HttpProxy.post(attr, "common_staff_json");
+        for(JSONObject jo : jos){
+            User tmp = fromJson(jo);
+            if(tmp.name.equals(staffName)){
+                return tmp.userid;
+            }
+        }
+
+        return null;
 //        Log.e("user", "pageCount:" + pageCount);
 
 //        for(int i=0;i<pageCount;i++){

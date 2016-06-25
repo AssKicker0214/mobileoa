@@ -35,6 +35,7 @@ import entity.Contact;
 import entity.Contract;
 import entity.Keepup;
 import entity.Opportunity;
+import entity.Product;
 import entity.SourceType;
 import presentation.contact.ContactDetailActivity;
 import presentation.contract.ContractCreateActivity;
@@ -42,6 +43,7 @@ import presentation.contract.ContractListItem;
 import presentation.customer.CustomerDetailActivity;
 import presentation.keepup.KeepupCreateActivity;
 import presentation.keepup.KeepupListItem;
+import presentation.product.ProductCreateActivity;
 import presentation.universal.RefreshableActivity;
 import presentation.universal.satellite.SatelliteMenu;
 import presentation.universal.satellite.SatelliteMenuItem;
@@ -122,6 +124,13 @@ public class OppoDetailActivity extends RefreshableActivity {
                     startActivity(intent);
                 } else if (id == 4) {
                     refresh();
+                } else if(id == 2){
+                    intent = new Intent(OppoDetailActivity.this, ProductCreateActivity.class);
+                    Product product = new Product();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Product", product);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
 
 

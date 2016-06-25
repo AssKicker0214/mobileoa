@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.ian.mobileoa.R;
 
+import bl.CurrentLogin;
 import bl.UserBL;
 import entity.User;
 
@@ -31,7 +33,23 @@ public class RegisterActivity extends AppCompatActivity {
                 AsyncTask<String[], Void, Boolean> task = new AsyncTask<String[], Void, Boolean>() {
                     @Override
                     protected Boolean doInBackground(String[]... params) {
-                        return userBL.register(params[0]);
+                        boolean registered = false;
+                        registered = userBL.register(params[0]);
+                        if(!registered){
+                            return false;
+                        }
+                        return true;
+
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean rs){
+                        String prompt = "创建失败";
+                        if(rs){
+                            prompt = "创建成功";
+                        }
+                        Toast.makeText(RegisterActivity.this, prompt, Toast.LENGTH_SHORT).show();
+
                     }
                 };
                 String[] attri = new String[1];

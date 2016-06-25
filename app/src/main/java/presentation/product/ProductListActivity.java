@@ -72,7 +72,15 @@ public class ProductListActivity extends RefreshableActivity implements IListApp
             }
 
             @Override
+            protected void onPreExecute(){
+                if(layout.getChildCount() > 0){
+                    layout.removeViewAt(layout.getChildCount() - 1);
+                }
+            }
+
+            @Override
             protected void onProgressUpdate(Product... product) {
+
 
                 ProductListItem item = new ProductListItem(ProductListActivity.this, product[0]);
                 layout.addView(item);
@@ -81,9 +89,6 @@ public class ProductListActivity extends RefreshableActivity implements IListApp
 
             @Override
             protected void onPostExecute(Integer pageCount){
-                if(layout.getChildCount() > 0) {
-                    layout.removeViewAt(layout.getChildCount() - 1);
-                }
                 MoreBtn moreBtn = null;
                 moreBtn = new MoreBtn(layout, ProductListActivity.this);
 
