@@ -104,6 +104,10 @@
         <activity
             android:name="presentation.contract.ContractDetailActivity"
             android:label="@string/title_activity_contract_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="presentation.product.ProductCreateActivity"
+            android:label="@string/title_activity_product_create_activity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

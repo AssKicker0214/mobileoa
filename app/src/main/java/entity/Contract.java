@@ -16,7 +16,7 @@ public class Contract implements Serializable{
     public String number = "";
     public String oppoTitle = "";
     public String total;
-    public ContractState state;
+    public ContractState state = ContractState.BEFORE;
     public String type;
     public String customerID = "";
     public String customerName = "";
@@ -44,9 +44,17 @@ public class Contract implements Serializable{
         att.put("totalamount", total);
 
         att.put("contractstatus", state.toFigure()+"");
-        att.put("startdate", getStartDate());
-        att.put("enddate", getEndDate());
-        att.put("signingdate", getSigningDate());
+        if(getStartDate()!=null){
+            att.put("startdate", getStartDate());
+        }
+
+        if(getEndDate()!=null){
+            att.put("enddate", getEndDate());
+        }
+
+        if(getSigningDate()!=null){
+            att.put("signingdate", getSigningDate());
+        }
         att.put("clientcontractor", clientContractor);
         att.put("ourcontractor", ourContractor);
         att.put("paymethod", payMethod);
@@ -90,7 +98,7 @@ public class Contract implements Serializable{
 
     private String getDate(Date date){
         if(date == null){
-            return "";
+            return null;
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String rs = "";

@@ -41,6 +41,8 @@ public class Opportunity implements Serializable{
         att.put("opportunityremarks", remark);
         if(expectedDate != null)
             att.put("expecteddate", format.format(expectedDate));
+
+        if(states != null)
         att.put("opportunitystatus", states.getFigure()+"");
 
         return att;

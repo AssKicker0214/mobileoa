@@ -27,8 +27,9 @@ import entity.Customer;
 import presentation.universal.IListAppendable;
 import presentation.universal.ListItemBtnFactory;
 import presentation.universal.MoreBtn;
+import presentation.universal.RefreshableActivity;
 
-public class CustomerListActivity extends Activity implements IListAppendable{
+public class CustomerListActivity extends RefreshableActivity implements IListAppendable{
     private LinearLayout allCusLayout;
     private LinearLayout myCusLayout;
     private ICustomerBL cusBL;
@@ -210,9 +211,10 @@ public class CustomerListActivity extends Activity implements IListAppendable{
         ((ViewGroup) findViewById(R.id.myCusContent)).removeAllViews();
     }
 
+
     @Override
-    public void onPostResume(){
-        super.onPostResume();
+    protected void refresh() {
+
         clearContent();
         appendContent(true, 1);
         appendContent(false, 1);

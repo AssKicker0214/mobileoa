@@ -186,13 +186,16 @@ public class OppoCreateActivity extends AppCompatActivity {
         title.setText(oppo.name);
         remark.setText(oppo.remark);
         successRate.setText(oppo.successRate+"");
-        estimatedAmount.setText(oppo.estimateAmount+"");
+        estimatedAmount.setText(oppo.estimateAmount + "");
         if(oppo.expectedDate != null){
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             expectedDate.setText(format.format(oppo.expectedDate));
         }
         setRaking(oppo.rank);
-        bar.setProgress(oppo.states.getFigure()-1);
+
+        if(oppo.states != null){
+            bar.setProgress(oppo.states.getFigure()-1);
+        }
     }
 
     private void updateEditable(){

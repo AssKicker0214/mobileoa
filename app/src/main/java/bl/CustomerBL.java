@@ -52,7 +52,6 @@ public class CustomerBL implements ICustomerBL{
 
         Map<String, String> attri = new HashMap<String, String>();
         attri.put("currentpage", "1");
-        attri.put("search", "");
         int pageCount = HttpProxy.getPageCount(attri, "common_customer_json");
 
         return pageCount;

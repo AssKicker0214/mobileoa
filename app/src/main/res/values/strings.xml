@@ -35,4 +35,5 @@
     <string name="title_activity_keepup_create">KeepupCreateActivity</string>
     <string name="title_activity_contract_create">ContractCreateActivity</string>
     <string name="title_activity_contract_detail">ContractDetailActivity</string>
+    <string name="title_activity_product_create_activity">product_create_activity</string>
 </resources>
