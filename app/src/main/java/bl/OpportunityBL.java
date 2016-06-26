@@ -124,6 +124,12 @@ public class OpportunityBL {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        try {
+            oppo.setAcquisitionDate(jo.getString("acquisitiondate"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         try {
             oppo.successRate = jo.getInt("successrate");
         } catch (JSONException e) {

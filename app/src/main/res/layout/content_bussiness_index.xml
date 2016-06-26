@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="presentation.business.BussinessIndexActivity"
-    tools:showIn="@layout/activity_bussiness_index">
+    tools:showIn="@layout/activity_bussiness_index"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_gradual_color"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView12"
+            android:background="@mipmap/business" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="业务"
+            android:id="@+id/textView26"
+            android:layout_marginLeft="23dp"
+            android:layout_marginStart="23dp"
+            android:textColor="#ffffff"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView12"
+            android:layout_toEndOf="@+id/imageView12" />
+    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,27 +42,292 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:id="@+id/employeeGoalSetting"
-            android:background="#a5d6a7"></LinearLayout>
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:gravity="center">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:id="@+id/remindSetting"
-            android:background="#e57373"></LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:id="@+id/reportPresentation"
-            android:background="#7986cb"></LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="初步洽谈"
+                    android:id="@+id/textView21"
+                    android:layout_marginRight="5dp"
+                    android:background="#80cbc4"
+                    android:textColor="#ffffff"
+                    android:padding="10dp"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        style="@style/mProgress_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/negotiation_bar"
+                        android:max="100"
+                        android:progress="50"
+                        android:progressTint="#80cbc4"
+                        android:progressBackgroundTint="#eceff1"
+                        android:indeterminate="false"
+                        android:progressBackgroundTintMode="src_over"
+                        android:progressTintMode="src_over" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="跟单数 3， 金额 10000，把握度 20%"
+                        android:id="@+id/negotiation_des_text"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="需求确定"
+                    android:id="@+id/textView20"
+                    android:layout_marginRight="5dp"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:background="#9575cd"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        style="@style/mProgress_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/requirement_bar"
+                        android:progress="50"
+                        android:progressTint="#9575cd"
+                        android:progressBackgroundTint="#eceff1"
+                        android:max="100"
+                        android:indeterminate="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="跟单数 3， 金额 10000，把握度 20%"
+                        android:id="@+id/requirement_des_text"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="方案报价"
+                    android:id="@+id/textView22"
+                    android:layout_marginRight="5dp"
+                    android:background="#5c6bc0"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        style="@style/mProgress_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/schema_bar"
+                        android:progressTint="#5c6bc0"
+                        android:progress="50"
+                        android:max="100"
+                        android:progressBackgroundTint="#eceff1"
+                        android:indeterminate="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="跟单数 3， 金额 10000，把握度 20%"
+                        android:id="@+id/schema_des_text"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="合同谈判"
+                    android:id="@+id/textView23"
+                    android:layout_marginRight="5dp"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:background="#afb42b"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        style="@style/mProgress_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/contract_bar"
+                        android:progress="50"
+                        android:progressTint="#afb42b"
+                        android:max="100"
+                        android:indeterminateOnly="false"
+                        android:progressBackgroundTint="#eceff1"
+                        android:indeterminate="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="跟单数 3， 金额 10000，把握度 20%"
+                        android:id="@+id/contract_des_text"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="赢        单"
+                    android:id="@+id/textView24"
+                    android:layout_marginRight="5dp"
+                    android:background="#388e3c"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        style="@style/mProgress_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/win_bar"
+                        android:progressTint="#388e3c"
+                        android:progress="50"
+                        android:progressBackgroundTint="#eceff1"
+                        android:indeterminate="false"
+                        android:max="100" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="跟单数 3， 金额 10000"
+                        android:id="@+id/win_des_text"
+                        android:textSize="12dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="输        单"
+                    android:id="@+id/textView25"
+                    android:layout_marginRight="5dp"
+                    android:textColor="#ffffff"
+                    android:padding="10dp"
+                    android:background="#d81b60"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ProgressBar
+                        style="@style/mProgress_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lose_bar"
+                        android:progress="70"
+                        android:progressTint="#d81b60"
+                        android:background="#ffffff"
+                        android:backgroundTintMode="add"
+                        android:progressBackgroundTint="#eceff1"
+                        android:max="100"
+                        android:indeterminate="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="跟单数 3， 金额 10000"
+                        android:id="@+id/lose_des_text"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
-</RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></LinearLayout>
+</LinearLayout>

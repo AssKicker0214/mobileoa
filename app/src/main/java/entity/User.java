@@ -6,4 +6,6 @@ package entity;
 public class User {
     public String name = "";
     public String userid = "";
+    public String dptid = "";
+    public String dptname = "";
 }

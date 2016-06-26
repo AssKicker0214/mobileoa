@@ -19,7 +19,6 @@ public class UserBL {
         boolean rs = false;
 
         Map<String, String> attr = new HashMap<>();
-        attr.put("search","");
         attr.put("staffid", id);
         attr.put("currentpage", "0");
 
@@ -36,14 +35,15 @@ public class UserBL {
         return rs;
     }
 
-    public boolean register(String[] as){
+    public boolean register(User staff){
         boolean rs = false;
         Map<String, String> attri = new HashMap<>();
-        attri.put("name", as[0]);
+        attri.put("name", staff.name);
+        attri.put("departmentid", staff.dptid);
         if(HttpProxy.post(attri, "staff_create_json") != null){
             rs = true;
         };
-        matchUser("");
+//        matchUser("");
         return rs;
     }
 
@@ -79,6 +79,19 @@ public class UserBL {
 //                }
 //            }
 //        }
+    }
+
+    public int getRecordCount(){
+        Map<String, String> att = new HashMap<>();
+        att.put("currentpage", "1");
+        JSONObject jo = HttpProxy.getJsonByPost(att, "common_staff_json");
+        int recordCount = 0;
+        try {
+            recordCount = jo.getInt("recordcount");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  recordCount;
     }
 
     public User fromJson(JSONObject jo){

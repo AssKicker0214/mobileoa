@@ -23,6 +23,7 @@ public class Opportunity implements Serializable{
 
     public int successRate = 0;
     public Date expectedDate = null;
+    public Date acquisitionDate = null;
     public double estimateAmount = 0.0;
 
     public Map<String, String> toMap(boolean isCreate){
@@ -53,6 +54,16 @@ public class Opportunity implements Serializable{
         try {
             Date date = format.parse(s);
             expectedDate = date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setAcquisitionDate(String s){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = format.parse(s);
+            acquisitionDate = date;
         } catch (ParseException e) {
             e.printStackTrace();
         }

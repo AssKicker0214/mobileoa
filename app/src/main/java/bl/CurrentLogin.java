@@ -7,7 +7,7 @@ import entity.User;
  */
 public class CurrentLogin {
     public static boolean logged = false;
-    public static String id = "102";
+    public static String id = "200";
     public static String name = "";
 
     public static void setUser(User user){
