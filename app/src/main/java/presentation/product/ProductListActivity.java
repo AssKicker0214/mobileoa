@@ -14,18 +14,29 @@ import com.example.ian.mobileoa.R;
 
 import java.util.ArrayList;
 
+
+import javax.inject.Inject;
+
+import bl.BLProvider;
 import bl.ProductBL;
 import entity.Product;
 import presentation.universal.IListAppendable;
 import presentation.universal.MoreBtn;
+import presentation.universal.MyApplication;
 import presentation.universal.RefreshableActivity;
 
 public class ProductListActivity extends RefreshableActivity implements IListAppendable{
 
     private LinearLayout listLayout;
+    @Inject
+    ProductBL pbl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        ObjectGraph og = ObjectGraph.create(new BLProvider());
+//        ((MyApplication)getApplication()).inject(this);
+        activityComponent.inject(this);
         setContentView(R.layout.activity_product_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -60,7 +71,6 @@ public class ProductListActivity extends RefreshableActivity implements IListApp
             LinearLayout layout = (LinearLayout) findViewById(R.id.product_list_content);
             @Override
             protected Integer doInBackground(Integer... params) {
-                ProductBL pbl = new ProductBL();
                 int pageCount = pbl.getPageCount();
                 ArrayList<Product> products = pbl.getList(params[0]);
                 for(Product product : products){

@@ -64,8 +64,8 @@ public class ContactListActivity extends AppCompatActivity implements IListAppen
         myContactLayout.setMinimumHeight(tabContentHeight);
 
 
-        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("全部合同").setContent(R.id.allContactScroll));
-        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("我的合同").setContent(R.id.myContactScroll));
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("全部联系人").setContent(R.id.allContactScroll));
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("我的联系人").setContent(R.id.myContactScroll));
 
     }
 

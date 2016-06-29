@@ -50,7 +50,7 @@
                     android:layout_alignParentTop="false"
                     android:layout_alignParentLeft="false"
                     android:layout_alignParentStart="false"
-                    android:alpha="0.3"
+                    android:alpha="1"
                     android:layout_centerInParent="true" />
 
                 <LinearLayout
@@ -65,8 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="客户"
-                        android:id="@+id/customerText"
+                        android:id="@+id/cus_header"
                         android:textAlignment="center"
                         android:gravity="center"
                         android:visibility="visible"
@@ -76,39 +75,10 @@
                         android:alpha="0.8"
                         android:textColor="#fbe9e7"
                         android:layout_alignParentTop="true"
-                        android:layout_alignRight="@+id/all_customer_count"
-                        android:layout_alignEnd="@+id/all_customer_count"
+                        android:layout_alignRight="@+id/cus_detail_all"
+                        android:layout_alignEnd="@+id/cus_detail_all"
                         android:textSize="15dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="2"
-                        android:id="@+id/my_customer_count"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:textAlignment="center"
-                        android:alpha="0.5"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="2dp"
-                        android:textColor="#ffffff"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textStyle="bold"
-                        android:textSize="15dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="/13"
-                        android:id="@+id/all_customer_count"
-                        android:textSize="15dp"
-                        android:layout_alignBottom="@+id/my_customer_count"
-                        android:layout_toRightOf="@+id/my_customer_count"
-                        android:layout_toEndOf="@+id/my_customer_count" />
                 </LinearLayout>
 
                 <TextView
@@ -116,11 +86,44 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="26"
-                    android:id="@+id/textView6"
+                    android:id="@+id/cus_detail_my"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:textColor="#ffffff"
-                    android:textSize="52dp" />
+                    android:textSize="52dp"
+                    android:alpha="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="/13"
+                    android:id="@+id/cus_detail_all"
+                    android:textSize="15dp"
+                    android:layout_alignBottom="@+id/customerImg"
+                    android:layout_toRightOf="@+id/cus_detail_my"
+                    android:layout_toEndOf="@+id/cus_detail_my"
+                    android:textColor="#ffffff"
+                    android:alpha="1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="客户"
+                    android:id="@+id/cus_des"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:enabled="true"
+                    android:clickable="true"
+                    android:textSize="20dp"
+                    android:elevation="0dp"
+                    android:alpha="0.8"
+                    android:textColor="#fbe9e7"
+                    android:layout_below="@+id/customerImg"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
             </com.andexert.library.RippleView>
@@ -147,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="合同"
-                    android:id="@+id/contractText"
+                    android:id="@+id/contract_des"
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -173,12 +176,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:id="@+id/textView4"
+                    android:id="@+id/contract_header"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textSize="15dp"
                     android:alpha="0.5"
                     android:paddingTop="5dp"
@@ -188,6 +190,28 @@
                     android:enabled="true"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:id="@+id/contract_detail_my"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#8d6e63"
+                    android:textSize="52dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="/0"
+                    android:id="@+id/contract_detail_all"
+                    android:layout_above="@+id/contract_des"
+                    android:layout_toRightOf="@+id/contract_detail_my"
+                    android:layout_toEndOf="@+id/contract_detail_my"
+                    android:textColor="#8d6e63" />
             </RelativeLayout>
             </com.andexert.library.RippleView>
 
@@ -209,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="联系人"
-                    android:id="@+id/contactText"
+                    android:id="@+id/contact_des"
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -217,13 +241,13 @@
                     android:enabled="true"
                     android:clickable="true"
                     android:textSize="18dp"
-                    android:layout_below="@+id/imageView2"
+                    android:layout_below="@+id/contactImg"
                     android:textColor="#fbe9e7" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView2"
+                    android:id="@+id/contactImg"
                     android:layout_alignParentLeft="false"
                     android:layout_alignParentStart="false"
                     android:background="@mipmap/contact"
@@ -237,8 +261,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:id="@+id/textView5"
+                    android:id="@+id/contact_header"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -251,6 +274,28 @@
                     android:textColor="#ffffff"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:id="@+id/contact_detail_my"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#fce4ec"
+                    android:textSize="52dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="/0"
+                    android:id="@+id/contact_detail_all"
+                    android:layout_alignBottom="@+id/contactImg"
+                    android:layout_toRightOf="@+id/contactImg"
+                    android:layout_toEndOf="@+id/contactImg"
+                    android:textColor="#fce4ec" />
             </RelativeLayout>
             </com.andexert.library.RippleView>
         </LinearLayout>
@@ -280,8 +325,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="10 / 100， 贡献10%"
-                    android:id="@+id/textView7"
+                    android:id="@+id/oppo_header"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -297,7 +341,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView8"
+                    android:id="@+id/oppoImg"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:src="@mipmap/oppo" />
@@ -307,7 +351,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="商机"
-                    android:id="@+id/textView11"
+                    android:id="@+id/oppo_des"
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -318,8 +362,30 @@
                     android:elevation="0dp"
                     android:alpha="0.8"
                     android:textColor="#fbe9e7"
-                    android:layout_below="@+id/imageView8"
+                    android:layout_below="@+id/oppoImg"
                     android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:id="@+id/oppo_detail_my"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#e0f2f1"
+                    android:textSize="52dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="/0"
+                    android:id="@+id/oppo_detail_all"
+                    android:layout_alignBottom="@+id/oppo_detail_my"
+                    android:layout_toRightOf="@+id/oppo_detail_my"
+                    android:layout_toEndOf="@+id/oppo_detail_my"
+                    android:textColor="#e0f2f1" />
             </RelativeLayout>
             </com.andexert.library.RippleView>
 
@@ -366,8 +432,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:id="@+id/textView14"
                     android:textAlignment="center"
                     android:textSize="15dp"
                     android:alpha="0.5"
@@ -400,7 +464,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView6"
+                    android:id="@+id/productImage"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:src="@mipmap/product" />
@@ -410,7 +474,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="产品"
-                    android:id="@+id/textView13"
+                    android:id="@+id/product_des"
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -418,19 +482,18 @@
                     android:enabled="true"
                     android:clickable="true"
                     android:textSize="20dp"
-                    android:textColor="#fbe9e7"
-                    android:layout_below="@+id/imageView6"
+                    android:textColor="#e0e0e0"
+                    android:layout_below="@+id/productImage"
                     android:layout_centerHorizontal="true" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:id="@+id/textView15"
-                    android:textAlignment="center"
+                    android:id="@+id/product_block_header"
+                    android:textAlignment="textStart"
                     android:textSize="15dp"
-                    android:alpha="0.5"
+                    android:alpha="1"
                     android:paddingTop="5dp"
                     android:paddingBottom="2dp"
                     android:textStyle="normal"
@@ -440,6 +503,28 @@
                     android:layout_centerHorizontal="true"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:id="@+id/product_detail_my"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="52dp"
+                    android:textColor="#e0e0e0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="0"
+                    android:id="@+id/product_detail_all"
+                    android:layout_alignBottom="@+id/productImage"
+                    android:layout_toRightOf="@+id/product_detail_my"
+                    android:layout_toEndOf="@+id/product_detail_my"
+                    android:textColor="#e0e0e0" />
             </RelativeLayout>
             </com.andexert.library.RippleView>
         </LinearLayout>

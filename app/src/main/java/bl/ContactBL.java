@@ -10,12 +10,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import blservice.IContactBL;
+import blservice.IIndexService;
 import entity.Contact;
 
 /**
  * Created by Ian on 2016/6/6.
  */
-public class ContactBL implements IContactBL {
+public class ContactBL extends UniversalBL implements IContactBL, IIndexService{
+    public static int formerCache = 0;
+    public static int laterCache = 0;
+    public static boolean cacheChanged = false;
+
     private int pageCount = -1;
     @Override
     public ArrayList<Contact> getContactList(int page) {
@@ -166,4 +171,62 @@ public class ContactBL implements IContactBL {
         return pageCount;
     }
 
+    @Override
+    public int[] getCount() {
+        ArrayList<Contact> customers = getContactList(0);
+        int[] rs = {0, 0};
+        for(Contact customer : customers){
+            if(customer.staffID.equals(CurrentLogin.id)){
+                rs[0] ++;
+            }
+            rs[1] ++;
+        }
+        return rs;
+    }
+
+    @Override
+    public int getNew() {
+//        ArrayList<Customer> customers = getCustomerList(0);
+//        int newCount = 0;
+//        for(Customer customer : customers){
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//            try {
+//                Date createDate = format.parse(customer.createDate);
+//                Log.e("date", "last="+format.format(date1)+",create="+format.format(createDate)+",next="+format.format(date2));
+//                if(createDate.after(date2) && createDate.before(date1)){
+//                    newCount ++;
+//                }
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return newCount;
+        updateRecordCount();
+//        Log.e("customer", "former="+formerCache+", later="+laterCache);
+        if(cacheChanged){
+            return laterCache-formerCache;
+        }
+        return 0;
+    }
+
+    @Override
+    protected String getAPI() {
+        return "common_contacts_json";
+    }
+
+    protected void updateCache(int count){
+        if(count > laterCache){
+            formerCache = laterCache;
+            laterCache = count;
+            if(formerCache == 0){
+                //第一次不算
+                cacheChanged = false;
+            }else{
+
+                cacheChanged = true;
+            }
+        }else{
+            cacheChanged = false;
+        }
+    }
 }

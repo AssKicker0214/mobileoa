@@ -1,5 +1,6 @@
 package bl;
 
+import java.util.Date;
 import entity.User;
 
 /**
@@ -9,11 +10,13 @@ public class CurrentLogin {
     public static boolean logged = false;
     public static String id = "200";
     public static String name = "";
+    public static Date loginTime = new Date(System.currentTimeMillis());
 
     public static void setUser(User user){
         id = user.userid;
         name = user.name;
         logged = true;
+        loginTime = new Date(System.currentTimeMillis());
     }
 
     public static void logout(){

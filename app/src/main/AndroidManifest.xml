@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!--android:name="presentation.universal.MyApplication"-->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -58,15 +60,6 @@
             android:name="presentation.contact.ContactListActivity"
             android:label="@string/title_activity_contact_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ListItemTestActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity
             android:name="presentation.customer.CustomerDetailActivity"
             android:label="@string/title_activity_customer_detail"

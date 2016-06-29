@@ -9,13 +9,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import blservice.IIndexService;
 import entity.OppoState;
 import entity.Opportunity;
 
 /**
  * Created by Ian on 2016/6/11.
  */
-public class OpportunityBL {
+public class OpportunityBL extends UniversalBL implements IIndexService{
+
+    public static int formerCache = 0;
+    public static int laterCache = 0;
+    public static boolean cacheChanged = false;
+
     public ArrayList<Opportunity> getOppoList(int page){
         Map<String, String> attr = new HashMap<>();
         attr.put("currentpage", page+"");
@@ -152,5 +158,49 @@ public class OpportunityBL {
                 default: oppo.states = OppoState.NEGOTIATION;
             }
         return oppo;
+    }
+
+    @Override
+    public int[] getCount() {
+        ArrayList<Opportunity> oppos = getOppoList(0);
+        int[] rs = {0, 0};
+        for(Opportunity oppo : oppos){
+            if(oppo.staffID.equals(CurrentLogin.id)){
+                rs[0] ++;
+            }
+            rs[1] ++;
+        }
+        return rs;
+    }
+
+    @Override
+    public int getNew() {
+        updateRecordCount();
+//        Log.e("customer", "former="+formerCache+", later="+laterCache);
+        if(cacheChanged){
+            return laterCache-formerCache;
+        }
+        return 0;
+    }
+
+    @Override
+    protected String getAPI() {
+        return "common_opportunity_json";
+    }
+
+    protected void updateCache(int count){
+        if(count > laterCache){
+            formerCache = laterCache;
+            laterCache = count;
+            if(formerCache == 0){
+                //第一次不算
+                cacheChanged = false;
+            }else{
+
+                cacheChanged = true;
+            }
+        }else{
+            cacheChanged = false;
+        }
     }
 }

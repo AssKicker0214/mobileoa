@@ -1,5 +1,7 @@
 package bl;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,12 +9,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import blservice.IIndexService;
 import entity.Product;
 
 /**
  * Created by Ian on 2016/6/24.
  */
-public class ProductBL extends UniversalBL {
+public class ProductBL extends UniversalBL implements IIndexService {
+    public static int formerCache = 0;
+    public static int laterCache = 0;
+    public static boolean cacheChanged = false;
 
     public boolean create(Product product){
         return getResult(product.toMap(true), "product_create_json");
@@ -112,5 +118,49 @@ public class ProductBL extends UniversalBL {
         }
 
         return product;
+    }
+
+    @Override
+    protected String getAPI() {
+        return "common_product_json";
+    }
+
+    @Override
+    protected void updateCache(int count) {
+        if(count > laterCache){
+
+            formerCache = laterCache;
+            laterCache = count;
+            if(formerCache == 0){
+                //第一次不算
+                cacheChanged = false;
+            }else{
+
+                cacheChanged = true;
+            }
+        }else{
+            cacheChanged = false;
+        }
+    }
+
+    @Override
+    public int[] getCount() {
+        ArrayList<Product> customers = getList(0);
+        int[] rs = {0, 0};
+        for(Product customer : customers){
+            rs[1] ++;
+            rs[0] ++;
+        }
+        return rs;
+    }
+
+    @Override
+    public int getNew() {
+        updateRecordCount();
+        Log.e("message", "product: former=" + formerCache + ", later=" + laterCache);
+        if(cacheChanged){
+            return laterCache-formerCache;
+        }
+        return 0;
     }
 }

@@ -9,13 +9,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import blservice.IIndexService;
 import entity.Contract;
 import entity.ContractState;
 
 /**
  * Created by Ian on 2016/6/11.
  */
-public class ContractBL {
+public class ContractBL extends UniversalBL implements IIndexService{
+    public static int formerCache = 0;
+    public static int laterCache = 0;
+    public static boolean cacheChanged = false;
+
     private int pageCount;
     public ArrayList<Contract> getContractList(int page){
         ArrayList<Contract> contracts = new ArrayList<>();
@@ -221,5 +226,64 @@ public class ContractBL {
 
     public int getPageCount(){
         return pageCount;
+    }
+
+    @Override
+    public int[] getCount() {
+        ArrayList<Contract> customers = getContractList(0);
+        int[] rs = {0, 0};
+        for(Contract customer : customers){
+            if(customer.staffID.equals(CurrentLogin.id)){
+                rs[0] ++;
+            }
+            rs[1] ++;
+        }
+        return rs;
+    }
+
+    @Override
+    public int getNew() {
+//        ArrayList<Customer> customers = getCustomerList(0);
+//        int newCount = 0;
+//        for(Customer customer : customers){
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//            try {
+//                Date createDate = format.parse(customer.createDate);
+//                Log.e("date", "last="+format.format(date1)+",create="+format.format(createDate)+",next="+format.format(date2));
+//                if(createDate.after(date2) && createDate.before(date1)){
+//                    newCount ++;
+//                }
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return newCount;
+        updateRecordCount();
+//        Log.e("customer", "former="+formerCache+", later="+laterCache);
+        if(cacheChanged){
+            return laterCache-formerCache;
+        }
+        return 0;
+    }
+
+    @Override
+    protected String getAPI() {
+        return "common_contract_json";
+    }
+
+    protected void updateCache(int count){
+        if(count > laterCache){
+            formerCache = laterCache;
+            laterCache = count;
+            if(formerCache == 0){
+                //第一次不算
+                cacheChanged = false;
+            }else{
+
+                cacheChanged = true;
+            }
+        }else{
+            cacheChanged = false;
+        }
     }
 }

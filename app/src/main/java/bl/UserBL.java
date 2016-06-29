@@ -35,6 +35,10 @@ public class UserBL {
         return rs;
     }
 
+//    public ArrayList<User> getList(){
+//
+//    }
+
     public boolean register(User staff){
         boolean rs = false;
         Map<String, String> attri = new HashMap<>();

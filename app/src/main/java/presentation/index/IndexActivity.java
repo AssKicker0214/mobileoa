@@ -30,6 +30,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +40,9 @@ import presentation.business.BussinessIndexActivity;
 import presentation.contact.ContactListActivity;
 import presentation.contract.ContractListActivity;
 import presentation.customer.CustomerListActivity;
+import presentation.index.block.CustomerBlock;
+import presentation.index.block.IndexBlock;
+import presentation.index.block.IndexBlockController;
 import presentation.opportunity.OpportunityListActivity;
 import presentation.product.ProductListActivity;
 
@@ -50,6 +54,7 @@ public class IndexActivity extends AppCompatActivity
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private ArrayList<IndexBlockController> controllers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,22 @@ public class IndexActivity extends AppCompatActivity
 //            ((TextView)findViewById(R.id.nav_current_login_id)).setText("id: "+CurrentLogin.id);
 
         }
+
+        setUpBlock();
+    }
+
+    private void setUpBlock(){
+        IndexBlockController cusController = new IndexBlockController("客户", this);
+        controllers.add(cusController);
+        IndexBlockController productController = new IndexBlockController("产品", this);
+        controllers.add(productController);
+        IndexBlockController oppoController = new IndexBlockController("商机", this);
+        controllers.add(oppoController);
+        IndexBlockController contractController = new IndexBlockController("合同", this);
+        controllers.add(contractController);
+        IndexBlockController contactController = new IndexBlockController("联系人", this);
+        controllers.add(contactController);
+
     }
 
     @Override
@@ -128,20 +149,12 @@ public class IndexActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             this.onStop();
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -171,19 +184,29 @@ public class IndexActivity extends AppCompatActivity
     private void setDrawer(){
 
     }
-//    private void testHttp(){
-//        Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                Map<String, String> attri = new HashMap<String, String>();
-//                attri.put("currentpage", "0");
-//                attri.put("search", "");
-//                HttpProxy.post(attri);
-//            }
-//        };
-//
-//        new Thread(runnable).start();
-//    }
+
+    public void startUpdate(){
+        for(IndexBlockController controller : controllers){
+            controller.setUpTimer(10000);
+            controller.setUpUITick(5000);
+        }
+    }
+
+    public void stopUpdate(){
+        for(IndexBlockController controller : controllers){
+            controller.stopTimer();
+            controller.stopUITick();
+        }
+    }
+
+    public void onResume(){
+        super.onResume();
+        startUpdate();
+    }
+
+    public void onPause(){
+        super.onPause();
+        stopUpdate();
+    }
 
 }

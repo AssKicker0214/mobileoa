@@ -140,7 +140,7 @@ public class RippleView extends RelativeLayout {
             public void onLongPress(MotionEvent event) {
                 super.onLongPress(event);
                 animateRipple(event);
-                sendClickEvent(true);
+                //sendClickEvent(true);
             }
 
             @Override
@@ -482,6 +482,10 @@ public class RippleView extends RelativeLayout {
 
     public void setOnRippleCompleteListener(OnRippleCompleteListener listener) {
         this.onCompletionListener = listener;
+    }
+
+    public OnRippleCompleteListener getOnRippleCompleteListener(){
+        return this.onCompletionListener;
     }
 
     /**

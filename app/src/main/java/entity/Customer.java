@@ -1,7 +1,9 @@
 package entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +40,8 @@ public class Customer implements Serializable{
         if(forEdit){
             att.put("customerid", id);
         }else{
+            createDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(System.currentTimeMillis()));
+            att.put("createdate", createDate);
         }
 
         att.put("customername", name);

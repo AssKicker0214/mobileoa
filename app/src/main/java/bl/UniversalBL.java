@@ -1,8 +1,11 @@
 package bl;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,5 +32,26 @@ public abstract class UniversalBL {
 
         return rs;
     }
+
+    public int updateRecordCount(){
+        Map<String, String> att = new HashMap<>();
+        att.put("currentpage", "1");
+        JSONObject jo = HttpProxy.getJsonByPost(att, getAPI());
+        int recordCount = 0;
+
+        try {
+            recordCount = jo.getInt("recordcount");
+            updateCache(recordCount);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("universal",recordCount+"");
+        return recordCount;
+    }
+
+    protected abstract String getAPI();
+
+    protected abstract void updateCache(int recordCount);
 
 }

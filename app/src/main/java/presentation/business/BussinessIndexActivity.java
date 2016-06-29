@@ -13,11 +13,15 @@ import android.widget.TextView;
 
 import com.example.ian.mobileoa.R;
 
+import javax.inject.Inject;
+
 import bl.BusinessBL;
 import bl.Rounder;
 import entity.OppoState;
+import presentation.universal.RefreshableActivity;
 
-public class BussinessIndexActivity extends AppCompatActivity {
+public class BussinessIndexActivity extends RefreshableActivity {
+    @Inject BusinessBL bbl;
 
     TextView nText;
     TextView rText;
@@ -32,11 +36,23 @@ public class BussinessIndexActivity extends AppCompatActivity {
     ProgressBar cBar;
     ProgressBar wBar;
     ProgressBar lBar;
+
+    @Override
+    protected void refresh() {
+        update(OppoState.NEGOTIATION);
+        update(OppoState.REQUIREMENT);
+        update(OppoState.SCHEME);
+        update(OppoState.CONTRACT);
+        update(OppoState.WIN);
+        update(OppoState.LOSE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bussiness_index);
 
+        activityComponent.inject(this);
         bind();
         update(OppoState.NEGOTIATION);
         update(OppoState.REQUIREMENT);
@@ -67,7 +83,6 @@ public class BussinessIndexActivity extends AppCompatActivity {
         AsyncTask<OppoState, Void, Double[]> task = new AsyncTask<OppoState, Void, Double[]>() {
             @Override
             protected Double[] doInBackground(OppoState... params) {
-                BusinessBL bbl = new BusinessBL();
 //                Double[] rateAndCountAndTotal = new Double[3];
 //                rateAndCountAndTotal[0] = bbl.getRateOfOppo(params[0]);
 //                rateAndCountAndTotal[1] = 0.0+bbl.getCountOfOppo(params[0]);
